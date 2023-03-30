@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudCover.App", "CloudCover.App\CloudCover.App.csproj", "{306108E7-EB50-4E7E-B396-B692FCCE9266}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudCover.App", "CloudCover.App\CloudCover.App.csproj", "{306108E7-EB50-4E7E-B396-B692FCCE9266}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudCover.Core", "CloudCover.Core\CloudCover.Core.csproj", "{FFDB5CB2-8A1C-4E2C-9FD8-83AB5DBAAFC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudCover.Services", "CloudCover.Services\CloudCover.Services.csproj", "{45A9C989-AD0F-43A2-A159-E1843A1850E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{306108E7-EB50-4E7E-B396-B692FCCE9266}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{306108E7-EB50-4E7E-B396-B692FCCE9266}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{306108E7-EB50-4E7E-B396-B692FCCE9266}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFDB5CB2-8A1C-4E2C-9FD8-83AB5DBAAFC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFDB5CB2-8A1C-4E2C-9FD8-83AB5DBAAFC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFDB5CB2-8A1C-4E2C-9FD8-83AB5DBAAFC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFDB5CB2-8A1C-4E2C-9FD8-83AB5DBAAFC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45A9C989-AD0F-43A2-A159-E1843A1850E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45A9C989-AD0F-43A2-A159-E1843A1850E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45A9C989-AD0F-43A2-A159-E1843A1850E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45A9C989-AD0F-43A2-A159-E1843A1850E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
