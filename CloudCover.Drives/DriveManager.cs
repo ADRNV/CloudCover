@@ -3,7 +3,7 @@ using System.Management;
 
 namespace CloudCover.Drives
 {
-    public class VolumeManager : IVolumeManager
+    public class DriveManager : IDriveManager
     {
         private readonly ManagementEventWatcher _watcher = new ManagementEventWatcher();
 
@@ -11,7 +11,7 @@ namespace CloudCover.Drives
 
         public event Action<object, IEnumerable<DriveInfo>> OnDriveSetChanged;
         
-        public VolumeManager()
+        public DriveManager()
         {
             _watcher = new ManagementEventWatcher();
             WqlEventQuery query = 

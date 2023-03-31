@@ -1,6 +1,6 @@
 ﻿namespace CloudCover.Core.Managers
 {
-    public interface IVolumeManager
+    public interface IDriveManager
     {
         public event Action<object, IEnumerable<DriveInfo>> OnDriveSetChanged;
         public DriveInfo? GetDrive(string name);
