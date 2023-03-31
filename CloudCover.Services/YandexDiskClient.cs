@@ -1,4 +1,5 @@
-﻿using YandexDisk.Client;
+﻿using CloudCover.Core.Clients;
+using YandexDisk.Client;
 using YandexDisk.Client.Clients;
 using YandexDisk.Client.Http;
 using YandexDisk.Client.Protocol;
