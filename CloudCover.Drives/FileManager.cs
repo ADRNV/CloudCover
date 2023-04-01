@@ -89,7 +89,7 @@ namespace CloudCover.Drives
                     yield return new StreamReader(file.FullName).BaseStream;
                 }
             }
-           
+
         }
 
         private IEnumerable<string> GetDirectories(string path, string searchPattern, SearchOption searchOption = SearchOption.TopDirectoryOnly)

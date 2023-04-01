@@ -10,11 +10,11 @@ namespace CloudCover.Drives
         private List<DriveInfo> _drives = new();
 
         public event Action<object, IEnumerable<DriveInfo>> OnDriveSetChanged;
-        
+
         public DriveManager()
         {
             _watcher = new ManagementEventWatcher();
-            WqlEventQuery query = 
+            WqlEventQuery query =
                 new WqlEventQuery("SELECT * FROM Win32_VolumeChangeEvent WHERE EventType = 2 OR EventType = 3");
             _watcher.EventArrived += new EventArrivedEventHandler(HandleVolumeChange);
             _watcher.Query = query;
