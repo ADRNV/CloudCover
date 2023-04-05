@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CloudCover.Core\CloudCover.Core.csproj" />
+    <ProjectReference Include="..\CloudCover.Services\CloudCover.Services.csproj" />
   </ItemGroup>
 
 </Project>

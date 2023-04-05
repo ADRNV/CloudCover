@@ -92,6 +92,20 @@ namespace CloudCover.Drives
 
         }
 
+        public IEnumerable<string> GetFilesPaths(string directory, string filter)
+        {
+            foreach (var topLevelDir in GetAllDirectories(directory))
+            {
+                var dirInfo = new DirectoryInfo(topLevelDir);
+
+                foreach (var file in dirInfo.GetFiles(filter, SearchOption.AllDirectories))
+                {
+                    yield return file.FullName;
+                }
+            }
+
+        }
+
         private IEnumerable<string> GetDirectories(string path, string searchPattern, SearchOption searchOption = SearchOption.TopDirectoryOnly)
         {
             try
