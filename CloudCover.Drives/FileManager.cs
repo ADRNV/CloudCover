@@ -1,8 +1,9 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using CloudCover.Core.Managers;
+using Microsoft.Extensions.Configuration;
 
 namespace CloudCover.Drives
 {
-    public class FileManager
+    public class FileManager : IFileManager
     {
         public FileManager()
         {

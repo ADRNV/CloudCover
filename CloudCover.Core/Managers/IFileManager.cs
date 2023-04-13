@@ -11,5 +11,7 @@
         IEnumerable<Stream> GetFiles(string directory);
 
         IEnumerable<Stream> GetFiles(string directory, string filter);
+
+        IEnumerable<string> GetFilesPaths(string directory, string filter);
     }
 }
