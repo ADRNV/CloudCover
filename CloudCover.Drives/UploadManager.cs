@@ -23,7 +23,10 @@ namespace CloudCover.Drives
 
             Fetched += OnFetched;
 
-            _dirsAndFiles = (Dictionary<string, string>)configuration.GetSection("FileDirFilter");
+            _dirsAndFiles = configuration
+                .GetSection("FileDirFilter")
+                .GetChildren()
+                .ToDictionary(c => c.Key.Replace(" ", @":"), c => c.Value)!;
         }
 
         /// <summary>
