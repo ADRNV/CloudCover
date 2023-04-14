@@ -11,7 +11,7 @@ namespace CloudCover.Drives
 
         private readonly Dictionary<string, string> _dirsAndFiles;
 
-        private Func<IEnumerable<Stream>, Task> Fetched;
+        private Func<IEnumerable<FileStream>, Task> Fetched;
 
         private List<string> _fetchedPaths = new List<string>();
 
@@ -35,13 +35,13 @@ namespace CloudCover.Drives
         /// <returns></returns>
         public IEnumerable<Stream> Fetch()
         {
-            List<Stream> files = new List<Stream>();
+            List<FileStream> files = new List<FileStream>();
 
             foreach (var dir in _dirsAndFiles.Keys)
             {
                 foreach (var subDir in _fileManager.GetAllDirectories(dir))
                 {
-                    _fetchedPaths.AddRange(_fileManager.GetFilesPaths(dir, _dirsAndFiles[dir]));
+                    _fetchedPaths.Add(subDir);
                     var foundFiles = _fileManager.GetFiles(subDir, _dirsAndFiles[dir]);
                     files.AddRange(foundFiles);
                 }
@@ -51,7 +51,7 @@ namespace CloudCover.Drives
             return files;
         }
 
-        protected virtual async Task OnFetched(IEnumerable<Stream> streams)
+        protected virtual async Task OnFetched(IEnumerable<FileStream> streams)
         {
             foreach (var mappedStream in MapStreamsToPath(streams.ToArray()))
             {
@@ -59,11 +59,11 @@ namespace CloudCover.Drives
             }
         }
 
-        private IEnumerable<KeyValuePair<string, Stream>> MapStreamsToPath(Stream[] streams)
+        private IEnumerable<KeyValuePair<string, FileStream>> MapStreamsToPath(FileStream[] streams)
         {
             for (var path = 0; path < _fetchedPaths.Count; path++)
             {
-                yield return new KeyValuePair<string, Stream>(_fetchedPaths[path], streams[path]);
+                yield return new KeyValuePair<string, FileStream>(_fetchedPaths[path], streams[path]);
             }
         }
     }

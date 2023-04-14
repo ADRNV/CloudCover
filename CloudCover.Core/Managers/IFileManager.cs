@@ -6,11 +6,11 @@
 
         Task<IEnumerable<DirectoryInfo>> GetAllDirectoriesAsync(string path);
 
-        Stream GetFile(string path);
+        FileStream GetFile(string path);
 
-        IEnumerable<Stream> GetFiles(string directory);
+        IEnumerable<FileStream> GetFiles(string directory);
 
-        IEnumerable<Stream> GetFiles(string directory, string filter);
+        IEnumerable<FileStream> GetFiles(string directory, string filter);
 
         IEnumerable<string> GetFilesPaths(string directory, string filter);
     }

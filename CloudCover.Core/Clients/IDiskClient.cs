@@ -2,7 +2,7 @@
 {
     public interface IDiskClient
     {
-        Task Upload(string path, Stream inputFile, bool overwrite);
+        Task Upload(string path, FileStream inputFile, bool overwrite);
 
         Task<Stream> Download(string path);
     }

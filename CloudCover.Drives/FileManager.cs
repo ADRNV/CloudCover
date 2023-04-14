@@ -55,9 +55,9 @@ namespace CloudCover.Drives
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public Stream GetFile(string path)
+        public FileStream GetFile(string path)
         {
-            return new StreamReader(path).BaseStream;
+            return new FileStream(path, FileMode.Open);
         }
 
         /// <summary>
@@ -65,11 +65,11 @@ namespace CloudCover.Drives
         /// </summary>
         /// <param name="directory"></param>
         /// <returns></returns>
-        public IEnumerable<Stream> GetFiles(string directory)
+        public IEnumerable<FileStream> GetFiles(string directory)
         {
             foreach (var file in Directory.GetFiles(directory))
             {
-                yield return new StreamReader(file).BaseStream;
+                yield return new FileStream(file, FileMode.Open);
             }
         }
 
@@ -79,7 +79,7 @@ namespace CloudCover.Drives
         /// <param name="directory"></param>
         /// <param name="filter">file lilter</param>
         /// <returns></returns>
-        public IEnumerable<Stream> GetFiles(string directory, string filter)
+        public IEnumerable<FileStream> GetFiles(string directory, string filter)
         {
             foreach (var topLevelDir in GetAllDirectories(directory))
             {
@@ -87,7 +87,7 @@ namespace CloudCover.Drives
 
                 foreach (var file in dirInfo.GetFiles(filter, SearchOption.AllDirectories))
                 {
-                    yield return new StreamReader(file.FullName).BaseStream;
+                    yield return new FileStream(file.FullName, FileMode.Open, FileAccess.Read);
                 }
             }
 
