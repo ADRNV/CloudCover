@@ -69,7 +69,7 @@ namespace CloudCover.Drives
 
             return apiPath;
         }
-  
+
         private IEnumerable<KeyValuePair<string, FileStream>> MapStreamsToPath(FileStream[] streams)
         {
             for (var path = 0; path < _fetchedPaths.Count; path++)
