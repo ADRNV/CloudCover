@@ -29,9 +29,9 @@ namespace CloudCover.Services
             {
                 fullPath += $"/{dir}";
 
-                link = await _diskApi.Commands.CreateDictionaryAsync(fullPath);
+                link = await _diskApi.Commands.CreateDictionaryAsync(fullPath);                
             }
-
+            
             return link;
         }
 
@@ -41,14 +41,14 @@ namespace CloudCover.Services
             {
                 await CreateDirsForFile(path);
                 var link = await _diskApi.Files.GetUploadLinkAsync(path, overwrite);
-                await _diskApi.Files.UploadAsync(link, inputFile);
+                await _diskApi.Files.UploadAsync(link, inputFile);    
             }
             catch (YandexApiException)
             {
                 var link = await _diskApi.Files.GetUploadLinkAsync(path, overwrite);
                 await _diskApi.Files.UploadAsync(link, inputFile);
             }
-
+            
         }
 
         public async Task<Stream> Download(string path)

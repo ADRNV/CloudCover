@@ -10,11 +10,11 @@ IoC.Load(new FilesModule());
 var uploader = IoC.Get<UploadManager>();
 
 IoC.Get<IDriveManager>()
-    .OnDriveSetChanged += IDriveManager_OnDriveSetChanged;
+    .DriveSetChanged += IDriveManager_OnDriveSetChanged;
 
-void IDriveManager_OnDriveSetChanged(object arg1, IEnumerable<DriveInfo> arg2)
+async Task IDriveManager_OnDriveSetChanged(object arg1, IEnumerable<DriveInfo> arg2)
 {
-    uploader.Fetch();
+    await uploader.FetchAsync();
 }
 
 Console.Read();

@@ -51,9 +51,14 @@ namespace CloudCover.Drives
             return files;
         }
 
+        public Task<IEnumerable<Stream>> FetchAsync() =>
+            Task.Run(() => Fetch());
+
         protected virtual async Task OnFetched(IEnumerable<FileStream> streams)
         {
-            foreach (var mappedStream in MapStreamsToPath(streams.ToArray()))
+            var mappedStreams = await MapStreamsToPathAsync(streams.ToArray());
+
+            foreach (var mappedStream in mappedStreams)
             {
                 await _yandexDiskClient
                     .Upload(ToApiPath(mappedStream.Value.Name), mappedStream.Value, true);
@@ -69,7 +74,7 @@ namespace CloudCover.Drives
 
             return apiPath;
         }
-
+  
         private IEnumerable<KeyValuePair<string, FileStream>> MapStreamsToPath(FileStream[] streams)
         {
             for (var path = 0; path < _fetchedPaths.Count; path++)
@@ -77,5 +82,8 @@ namespace CloudCover.Drives
                 yield return new KeyValuePair<string, FileStream>(_fetchedPaths[path], streams[path]);
             }
         }
+
+        private async Task<IEnumerable<KeyValuePair<string, FileStream>>> MapStreamsToPathAsync(FileStream[] streams) =>
+           await Task.Run(() => MapStreamsToPath(streams));
     }
 }
