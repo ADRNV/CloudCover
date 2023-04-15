@@ -4,6 +4,9 @@ using CloudCover.Drives;
 using CloudCover.Services;
 using Microsoft.Extensions.Configuration;
 using Ninject.Modules;
+using Serilog;
+using Serilog.Core;
+using Serilog.Events;
 
 namespace CloudCover.App.IoC
 {
@@ -11,6 +14,15 @@ namespace CloudCover.App.IoC
     {
         public override void Load()
         {
+            ILogger logger = new LoggerConfiguration()
+                .WriteTo
+                .Console(LogEventLevel.Debug)
+                .MinimumLevel.Debug()
+                .CreateLogger();
+
+            this.Bind<ILogger>()
+                .ToConstant(logger);
+
             this.Bind<IDriveManager>()
                 .To<DriveManager>();
 

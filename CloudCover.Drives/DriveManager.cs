@@ -1,4 +1,5 @@
 ﻿using CloudCover.Core.Managers;
+using Serilog;
 using System.Management;
 
 namespace CloudCover.Drives
@@ -10,6 +11,8 @@ namespace CloudCover.Drives
         private List<DriveInfo> _drives = new();
 
         public event Func<object, IEnumerable<DriveInfo>, Task> DriveSetChanged;
+
+        private ILogger _logger;
 
         public DriveManager()
         {
@@ -23,11 +26,27 @@ namespace CloudCover.Drives
 
         }
 
+        public DriveManager(ILogger logger) 
+        {
+            _watcher = new ManagementEventWatcher();
+            WqlEventQuery query =
+                new WqlEventQuery("SELECT * FROM Win32_VolumeChangeEvent WHERE EventType = 2");
+            _watcher.EventArrived += new EventArrivedEventHandler(OnDriveSetChanged);
+            _watcher.Query = query;
+            _watcher.Start();
+            _watcher.WaitForNextEvent();
+
+            _logger = logger;
+
+        }
+
         private async void OnDriveSetChanged(object sender, EventArrivedEventArgs e)
         {
             await Task.Run(() => _drives = DriveInfo.GetDrives()
                 .Where(d => d.IsReady)
                 .ToList());
+
+            _logger?.Debug("{Time} Changed drive set {DriveName}", DateTime.Now, _drives.Last().Name);
 
             await DriveSetChanged.Invoke(this, _drives);
         }

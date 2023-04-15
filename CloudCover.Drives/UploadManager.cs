@@ -1,5 +1,6 @@
 ﻿using CloudCover.Core.Clients;
 using Microsoft.Extensions.Configuration;
+using Serilog;
 
 namespace CloudCover.Drives
 {
@@ -15,6 +16,8 @@ namespace CloudCover.Drives
 
         private List<string> _fetchedPaths = new List<string>();
 
+        private readonly ILogger _logger;
+
         public UploadManager(FileManager fileManager, IDiskClient yandexDiskClient, IConfiguration configuration)
         {
             _fileManager = fileManager;
@@ -27,6 +30,11 @@ namespace CloudCover.Drives
                 .GetSection("FileDirFilter")
                 .GetChildren()
                 .ToDictionary(c => c.Key.Replace(" ", @":"), c => c.Value)!;
+        }
+
+        public UploadManager(FileManager fileManager, IDiskClient yandexDiskClient, IConfiguration configuration, ILogger logger) : this(fileManager, yandexDiskClient, configuration)
+        {
+            _logger = logger;
         }
 
         /// <summary>
@@ -44,8 +52,11 @@ namespace CloudCover.Drives
                     _fetchedPaths.Add(subDir);
                     var foundFiles = _fileManager.GetFiles(subDir, _dirsAndFiles[dir]);
                     files.AddRange(foundFiles);
+                    
                 }
+                _logger.Information("Found {files} of type {type}", files.Count, _dirsAndFiles[dir]);
             }
+
 
             Fetched?.Invoke(files);
             return files;
