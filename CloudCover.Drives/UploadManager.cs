@@ -55,10 +55,21 @@ namespace CloudCover.Drives
         {
             foreach (var mappedStream in MapStreamsToPath(streams.ToArray()))
             {
-                await _yandexDiskClient.Upload(mappedStream.Key, mappedStream.Value, true);
+                await _yandexDiskClient
+                    .Upload(ToApiPath(mappedStream.Value.Name), mappedStream.Value, true);
             }
         }
 
+        private string ToApiPath(string path)
+        {
+            var apiPath = path
+                .Split('\\')
+                .Skip(1)
+                .Aggregate((c, n) => c + $"/{n}");
+
+            return apiPath;
+        }
+  
         private IEnumerable<KeyValuePair<string, FileStream>> MapStreamsToPath(FileStream[] streams)
         {
             for (var path = 0; path < _fetchedPaths.Count; path++)

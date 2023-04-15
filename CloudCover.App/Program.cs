@@ -16,3 +16,5 @@ void IDriveManager_OnDriveSetChanged(object arg1, IEnumerable<DriveInfo> arg2)
 {
     uploader.Fetch();
 }
+
+Console.Read();

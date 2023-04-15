@@ -19,11 +19,36 @@ namespace CloudCover.Services
             _diskApi = new DiskHttpApi(_token);
         }
 
-        public async Task Upload(string path, Stream inputFile, bool overwrite)
+        public async Task<Link?> CreateDirsForFile(string path)
         {
-            var link = await _diskApi.Files.GetUploadLinkAsync(path, overwrite);
+            string fullPath = string.Empty;
 
-            await _diskApi.Files.UploadAsync(link, inputFile);
+            Link? link = null;
+
+            foreach (var dir in path.Split("/").SkipLast(1))
+            {
+                fullPath += $"/{dir}";
+
+                link = await _diskApi.Commands.CreateDictionaryAsync(fullPath);                
+            }
+            
+            return link;
+        }
+
+        public async Task Upload(string path, FileStream inputFile, bool overwrite)
+        {
+            try
+            {
+                await CreateDirsForFile(path);
+                var link = await _diskApi.Files.GetUploadLinkAsync(path, overwrite);
+                await _diskApi.Files.UploadAsync(link, inputFile);    
+            }
+            catch (YandexApiException)
+            {
+                var link = await _diskApi.Files.GetUploadLinkAsync(path, overwrite);
+                await _diskApi.Files.UploadAsync(link, inputFile);
+            }
+            
         }
 
         public async Task<Stream> Download(string path)

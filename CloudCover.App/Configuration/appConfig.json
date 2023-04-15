@@ -1,8 +1,8 @@
 {
   "_comment": "Space in file path needs for correct read configuration.For sample - E \\Docs",
-  "token": "",
+  "token": "y0_AgAAAAA-sOUXAAj5zAAAAADZIcfipAt9sNP7QjCEgzR1k4IP_wFFQLg",
   "FileDirFilter": {
-   
+    "E \\3Course": "*.docx"
   }
 
 }

@@ -23,7 +23,7 @@ namespace CloudCover.App.IoC
 
             this.Bind<IDiskClient>()
                 .To<YandexDiskClient>()
-                .WithConstructorArgument("token", "12345");
+                .WithConstructorArgument("token", config.GetSection("token").Value);
 
             this.Bind<UploadManager>()
                 .ToSelf()
