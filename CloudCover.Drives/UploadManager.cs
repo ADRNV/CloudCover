@@ -1,10 +1,11 @@
 ﻿using CloudCover.Core.Clients;
+using CloudCover.Core.Managers;
 using Microsoft.Extensions.Configuration;
 using Serilog;
 
 namespace CloudCover.Drives
 {
-    public class UploadManager
+    public class UploadManager : IFileUploadManager
     {
         private readonly FileManager _fileManager;
 
@@ -40,8 +41,8 @@ namespace CloudCover.Drives
         /// <summary>
         /// Gets all files as stream in dirs
         /// </summary>
-        /// <returns></returns>
-        public IEnumerable<Stream> Fetch()
+        /// <returns>Streams of files</returns>
+        public IEnumerable<FileStream> Fetch()
         {
             List<FileStream> files = new List<FileStream>();
 
@@ -62,9 +63,18 @@ namespace CloudCover.Drives
             return files;
         }
 
-        public Task<IEnumerable<Stream>> FetchAsync() =>
+        // <summary>
+        /// Gets all files async as stream in dirs
+        /// </summary>
+        /// <returns>Streams of files</returns>
+        public Task<IEnumerable<FileStream>> FetchAsync() =>
             Task.Run(() => Fetch());
 
+        /// <summary>
+        /// Event handler for fetched files
+        /// </summary>
+        /// <param name="streams">Stream of file</param>
+        /// <returns></returns>
         protected virtual async Task OnFetched(IEnumerable<FileStream> streams)
         {
             var mappedStreams = await MapStreamsToPathAsync(streams.ToArray());

@@ -14,32 +14,11 @@ namespace CloudCover.App.IoC
     {
         public override void Load()
         {
-            ILogger logger = new LoggerConfiguration()
-                .WriteTo
-                .Console(LogEventLevel.Debug)
-                .MinimumLevel.Debug()
-                .CreateLogger();
-
-            this.Bind<ILogger>()
-                .ToConstant(logger);
-
             this.Bind<IDriveManager>()
                 .To<DriveManager>();
 
             this.Bind<IFileManager>()
                 .To<FileManager>();
-
-            var config = new ConfigurationBuilder()
-                .AddJsonFile($"{Environment.CurrentDirectory}/Configuration/appConfig.json")
-                .Build();
-
-            this.Bind<IDiskClient>()
-                .To<YandexDiskClient>()
-                .WithConstructorArgument("token", config.GetSection("token").Value);
-
-            this.Bind<UploadManager>()
-                .ToSelf()
-                .WithConstructorArgument("configuration", config);
         }
     }
 }

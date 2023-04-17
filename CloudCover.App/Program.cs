@@ -1,13 +1,12 @@
 ﻿using CloudCover.App.IoC;
 using CloudCover.Core.Managers;
-using CloudCover.Drives;
 using Ninject;
 
 IKernel IoC = new StandardKernel();
 
-IoC.Load(new FilesModule());
+IoC.Load(new LoggingModule(), new FilesModule(), new UploadModule());
 
-var uploader = IoC.Get<UploadManager>();
+var uploader = IoC.Get<IFileUploadManager>();
 
 IoC.Get<IDriveManager>()
     .DriveSetChanged += IDriveManager_OnDriveSetChanged;
