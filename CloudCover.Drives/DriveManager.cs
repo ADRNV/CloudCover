@@ -8,7 +8,7 @@ namespace CloudCover.Drives
     {
         private readonly ManagementEventWatcher _watcher = new ManagementEventWatcher();
 
-        private List<DriveInfo> _drives = new();
+        public List<DriveInfo> DriveSet { get; private set; } = new List<DriveInfo>();
 
         public event Func<object, IEnumerable<DriveInfo>, Task> DriveSetChanged;
 
@@ -42,17 +42,20 @@ namespace CloudCover.Drives
 
         private async void OnDriveSetChanged(object sender, EventArrivedEventArgs e)
         {
-            await Task.Run(() => _drives = DriveInfo.GetDrives()
+            await Task.Run(() => DriveSet = DriveInfo.GetDrives()
                 .Where(d => d.IsReady)
                 .ToList());
 
-            _logger?.Debug("{Time} Changed drive set {DriveName}", DateTime.Now, _drives.Last().Name);
+            _logger?.Debug("{Time} Changed drive set {DriveName}", DateTime.Now, DriveSet.Last().Name);
 
-            await DriveSetChanged.Invoke(this, _drives);
+            if(DriveSetChanged is not null)
+            {
+                await DriveSetChanged?.Invoke(this, DriveSet);
+            }  
         }
 
         public async Task<DriveInfo?> GetDrive(string name) =>
-            await Task.Run(() => _drives.Where(d => d.Name == name)
+            await Task.Run(() => DriveSet.Where(d => d.Name == name)
                 .FirstOrDefault());
 
         public async Task<DriveInfo?> GetDrive(string name, string label) =>
@@ -60,11 +63,25 @@ namespace CloudCover.Drives
             .Where(d => d.Name == name && d.VolumeLabel == label)
             .FirstOrDefault());
 
+        public async Task<int> ForceRefresh() =>
+            await Task.Run(async () =>
+            {
+                DriveSet = DriveInfo.GetDrives()
+                .ToList();
+
+                if(DriveSetChanged is not null)
+                {
+                    await DriveSetChanged?.Invoke(this, DriveSet);
+                }
+                
+                return DriveSet.Count;
+            });
+
         public async Task<IEnumerable<DriveInfo>> GetDrivesOfType(DriveType driveType) =>
            await Task.Run(() => GetReadyDrives()
             .Where(d => d.DriveType == driveType));
 
         public IEnumerable<DriveInfo> GetReadyDrives() =>
-            _drives.Where(d => d.IsReady);
+            DriveSet.Where(d => d.IsReady);
     }
 }

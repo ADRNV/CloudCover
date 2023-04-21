@@ -5,11 +5,13 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudCover.App", "CloudCover.App\CloudCover.App.csproj", "{306108E7-EB50-4E7E-B396-B692FCCE9266}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudCover.Core", "CloudCover.Core\CloudCover.Core.csproj", "{FFDB5CB2-8A1C-4E2C-9FD8-83AB5DBAAFC6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudCover.Core", "CloudCover.Core\CloudCover.Core.csproj", "{FFDB5CB2-8A1C-4E2C-9FD8-83AB5DBAAFC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudCover.Services", "CloudCover.Services\CloudCover.Services.csproj", "{45A9C989-AD0F-43A2-A159-E1843A1850E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudCover.Services", "CloudCover.Services\CloudCover.Services.csproj", "{45A9C989-AD0F-43A2-A159-E1843A1850E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudCover.Drives", "CloudCover.Drives\CloudCover.Drives.csproj", "{2E2F4A83-6F2C-4BB9-9659-361CF4B11A2D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudCover.Drives", "CloudCover.Drives\CloudCover.Drives.csproj", "{2E2F4A83-6F2C-4BB9-9659-361CF4B11A2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudCover.DrivesTests", "CloudCover.DrivesTests\CloudCover.DrivesTests.csproj", "{0882EA39-9DE6-4FA8-BFEB-B0B14182940F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{2E2F4A83-6F2C-4BB9-9659-361CF4B11A2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E2F4A83-6F2C-4BB9-9659-361CF4B11A2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E2F4A83-6F2C-4BB9-9659-361CF4B11A2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0882EA39-9DE6-4FA8-BFEB-B0B14182940F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0882EA39-9DE6-4FA8-BFEB-B0B14182940F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0882EA39-9DE6-4FA8-BFEB-B0B14182940F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0882EA39-9DE6-4FA8-BFEB-B0B14182940F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
