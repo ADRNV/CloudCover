@@ -1,5 +1,6 @@
 ﻿using CloudCover.Core.Clients;
 using CloudCover.Core.Managers;
+using CloudCover.Drives.FilesExtensions;
 using Microsoft.Extensions.Configuration;
 using Serilog;
 
@@ -81,7 +82,8 @@ namespace CloudCover.Drives
         /// <returns></returns>
         protected virtual async Task OnFetched(IEnumerable<FileStream> streams)
         {
-            var mappedStreams = await MapStreamsToPathAsync(streams.ToArray());
+            var mappedStreams = await streams.ToArray()
+                .MapStreamsToPathAsync(_fetchedPaths);
 
             foreach (var mappedStream in mappedStreams)
             {
@@ -100,15 +102,7 @@ namespace CloudCover.Drives
             return apiPath;
         }
   
-        private IEnumerable<KeyValuePair<string, FileStream>> MapStreamsToPath(FileStream[] streams)
-        {
-            for (var path = 0; path < _fetchedPaths.Count; path++)
-            {
-                yield return new KeyValuePair<string, FileStream>(_fetchedPaths[path], streams[path]);
-            }
-        }
-
         private async Task<IEnumerable<KeyValuePair<string, FileStream>>> MapStreamsToPathAsync(FileStream[] streams) =>
-           await Task.Run(() => MapStreamsToPath(streams));
+           await Task.Run(() => streams.MapStreamsToPath(_fetchedPaths));
     }
 }
