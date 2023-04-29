@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudCover.Services", "Clou
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudCover.Drives", "CloudCover.Drives\CloudCover.Drives.csproj", "{2E2F4A83-6F2C-4BB9-9659-361CF4B11A2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudCover.DrivesTests", "CloudCover.DrivesTests\CloudCover.DrivesTests.csproj", "{0882EA39-9DE6-4FA8-BFEB-B0B14182940F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +33,6 @@ Global
 		{2E2F4A83-6F2C-4BB9-9659-361CF4B11A2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E2F4A83-6F2C-4BB9-9659-361CF4B11A2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E2F4A83-6F2C-4BB9-9659-361CF4B11A2D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0882EA39-9DE6-4FA8-BFEB-B0B14182940F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0882EA39-9DE6-4FA8-BFEB-B0B14182940F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0882EA39-9DE6-4FA8-BFEB-B0B14182940F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0882EA39-9DE6-4FA8-BFEB-B0B14182940F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
