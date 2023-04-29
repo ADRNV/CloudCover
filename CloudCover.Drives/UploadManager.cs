@@ -58,7 +58,7 @@ namespace CloudCover.Drives
                     _fetchedPaths.Add(subDir);
                     var foundFiles = _fileManager.GetFiles(subDir, _dirsAndFiles[dir]);
                     files.AddRange(foundFiles);
-                    
+
                 }
                 _logger.Information("Found {files} of type {type}", files.Count, _dirsAndFiles[dir]);
             }
@@ -101,8 +101,5 @@ namespace CloudCover.Drives
 
             return apiPath;
         }
-  
-        private async Task<IEnumerable<KeyValuePair<string, FileStream>>> MapStreamsToPathAsync(FileStream[] streams) =>
-           await Task.Run(() => streams.MapStreamsToPath(_fetchedPaths));
     }
 }

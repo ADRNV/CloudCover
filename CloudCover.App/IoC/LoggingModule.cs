@@ -1,6 +1,6 @@
 ﻿using Ninject.Modules;
-using Serilog.Events;
 using Serilog;
+using Serilog.Events;
 
 namespace CloudCover.App.IoC
 {

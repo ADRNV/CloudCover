@@ -36,7 +36,7 @@ namespace CloudCover.Drives
         /// Creates instance
         /// </summary>
         /// <param name="logger"></param>
-        public DriveManager(ILogger logger) 
+        public DriveManager(ILogger logger)
         {
             _watcher = new ManagementEventWatcher();
             WqlEventQuery query =
@@ -58,10 +58,10 @@ namespace CloudCover.Drives
 
             _logger?.Debug("{Time} Changed drive set {DriveName}", DateTime.Now, DriveSet.Last().Name);
 
-            if(DriveSetChanged is not null)
+            if (DriveSetChanged is not null)
             {
                 await DriveSetChanged?.Invoke(this, DriveSet);
-            }  
+            }
         }
 
         /// <summary>
@@ -94,11 +94,11 @@ namespace CloudCover.Drives
                 DriveSet = DriveInfo.GetDrives()
                 .ToList();
 
-                if(DriveSetChanged is not null)
+                if (DriveSetChanged is not null)
                 {
                     await DriveSetChanged?.Invoke(this, DriveSet);
                 }
-                
+
                 return DriveSet.Count;
             });
 
