@@ -1,5 +1,8 @@
 ﻿namespace CloudCover.Core.Managers
 {
+    /// <summary>
+    /// Discribe behavior for searching and mapping file to <see cref="FileStream"/>
+    /// </summary>
     public interface IFileManager
     {
         IEnumerable<string> GetAllDirectories(string path);

@@ -5,6 +5,9 @@ using Serilog;
 
 namespace CloudCover.Drives
 {
+    /// <summary>
+    /// Responses for where and which files upload on CloudDrive
+    /// </summary>
     public class UploadManager : IFileUploadManager
     {
         private readonly FileManager _fileManager;
@@ -27,10 +30,11 @@ namespace CloudCover.Drives
 
             Fetched += OnFetched;
 
+            //JSON identifies ':' in name of drive like end of key name.For this he has been replaced spacing
             _dirsAndFiles = configuration
                 .GetSection("FileDirFilter")
                 .GetChildren()
-                .ToDictionary(c => c.Key.Replace(" ", @":"), c => c.Value)!;
+                .ToDictionary(c => c.Key.Replace(" ", @":"), c => c.Value)!;//When we manupelate in configuration manage all Ok
         }
 
         public UploadManager(FileManager fileManager, IDiskClient yandexDiskClient, IConfiguration configuration, ILogger logger) : this(fileManager, yandexDiskClient, configuration)

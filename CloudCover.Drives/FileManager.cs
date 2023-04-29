@@ -3,6 +3,10 @@ using Microsoft.Extensions.Configuration;
 
 namespace CloudCover.Drives
 {
+    /// <summary>
+    /// Superstructure on standart <see cref="FileInfo"/> and <see cref="DirectoryInfo"/>
+    /// Responses for getting files and mapping to <see cref="FileStream"/>
+    /// </summary>
     public class FileManager : IFileManager
     {
         public FileManager()

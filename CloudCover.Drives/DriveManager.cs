@@ -4,6 +4,9 @@ using System.Management;
 
 namespace CloudCover.Drives
 {
+    /// <summary>
+    /// Superstructure on drive manager, may react to drives in system changing
+    /// </summary>
     public class DriveManager : IDriveManager
     {
         private readonly ManagementEventWatcher _watcher = new ManagementEventWatcher();
@@ -14,6 +17,9 @@ namespace CloudCover.Drives
 
         private ILogger _logger;
 
+        /// <summary>
+        /// Crates instance
+        /// </summary>
         public DriveManager()
         {
             _watcher = new ManagementEventWatcher();
@@ -26,6 +32,10 @@ namespace CloudCover.Drives
 
         }
 
+        /// <summary>
+        /// Creates instance
+        /// </summary>
+        /// <param name="logger"></param>
         public DriveManager(ILogger logger) 
         {
             _watcher = new ManagementEventWatcher();
@@ -54,15 +64,30 @@ namespace CloudCover.Drives
             }  
         }
 
+        /// <summary>
+        /// Gets drive with name
+        /// </summary>
+        /// <param name="name">Name of drive</param>
+        /// <returns>Drive else - null</returns>
         public async Task<DriveInfo?> GetDrive(string name) =>
             await Task.Run(() => DriveSet.Where(d => d.Name == name)
                 .FirstOrDefault());
 
+        /// <summary>
+        /// Gets drive by label and name
+        /// </summary>
+        /// <param name="name">Name of drive</param>
+        /// <param name="label">Label of drive</param>
+        /// <returns></returns>
         public async Task<DriveInfo?> GetDrive(string name, string label) =>
            await Task.Run(() => GetReadyDrives()
             .Where(d => d.Name == name && d.VolumeLabel == label)
             .FirstOrDefault());
 
+        /// <summary>
+        /// Forces refreshes drive set and invokes <see cref="DriveSetChanged"/>
+        /// </summary>
+        /// <returns>Count of drives</returns>
         public async Task<int> ForceRefresh() =>
             await Task.Run(async () =>
             {
@@ -77,10 +102,19 @@ namespace CloudCover.Drives
                 return DriveSet.Count;
             });
 
+        /// <summary>
+        /// Gets drives of <see cref="DriveType"/>
+        /// </summary>
+        /// <param name="driveType">Type of drive</param>
+        /// <returns></returns>
         public async Task<IEnumerable<DriveInfo>> GetDrivesOfType(DriveType driveType) =>
            await Task.Run(() => GetReadyDrives()
             .Where(d => d.DriveType == driveType));
 
+        /// <summary>
+        /// Gets all ready drives
+        /// </summary>
+        /// <returns>Ready drives enumerable</returns>
         public IEnumerable<DriveInfo> GetReadyDrives() =>
             DriveSet.Where(d => d.IsReady);
     }
