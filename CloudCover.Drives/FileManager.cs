@@ -22,14 +22,18 @@ namespace CloudCover.Drives
         public IEnumerable<string> GetAllDirectories(string path)
         {
             var topLevelDirs = GetDirectories(path, "*", SearchOption.TopDirectoryOnly);
-
+            var allDirs = new List<string>() { path };
             foreach (var dir in topLevelDirs)
             {
                 foreach (var nested in GetDirectories(dir, "*", SearchOption.AllDirectories))
                 {
-                    yield return nested;
+                    allDirs.Add(nested);
                 }
+
+                allDirs.Add(dir);
             }
+
+            return allDirs;
         }
 
         /// <summary>
@@ -91,10 +95,9 @@ namespace CloudCover.Drives
 
                 foreach (var file in dirInfo.GetFiles(filter, SearchOption.AllDirectories))
                 {
-                    yield return new FileStream(file.FullName, FileMode.Open, FileAccess.Read);
+                    yield return new FileStream(file.FullName, FileMode.Open, FileAccess.Read);//fileStreamsList.Add(new FileStream(file.FullName, FileMode.Open, FileAccess.Read));
                 }
             }
-
         }
 
         public IEnumerable<string> GetFilesPaths(string directory, string filter)
@@ -108,7 +111,6 @@ namespace CloudCover.Drives
                     yield return file.FullName;
                 }
             }
-
         }
 
         private IEnumerable<string> GetDirectories(string path, string searchPattern, SearchOption searchOption = SearchOption.TopDirectoryOnly)
